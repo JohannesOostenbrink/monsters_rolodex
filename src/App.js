@@ -8,7 +8,7 @@ class App extends Component {
 
     this.state={
       monsters:[],
-      searchField = ''
+      searchField: '',
 
   };
 }
@@ -21,28 +21,28 @@ componentDidMount() { // This run 3rd - Updates the state and then render re-ren
 }))
 }
 
+onSearchChange = (event) => {
+  const searchField = event.target.value.toLocaleLowerCase();
+  this.setState(
+    () => ({ searchField }))
+};
+
   render(){ // Renders run second. It mounts initial UI on to the DOM  
     
-    const filteredMonsters = this.state.monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(this.state.searchField);
+    const { monsters, searchField} = this.state;
+    const {onSearchChange} = this;
+
+    const filteredMonsters = monsters.filter((monster) => {
+      return monster.name.toLocaleLowerCase().includes(searchField);
      });
 
     return (
       <div className="App">
-        <div className = "Monsters">
+        
           <input className = 'search-box' type='search' placeholder='search monsters' 
-          onChange={(event) => {
-            const searchField = event.target.value.toLocaleLowerCase();
-           
+          onChange={onSearchChange}/>
 
-            this.setState(
-              () => {
-              return {searchField };
-            })
-          
-          }}>search</input>
-
-         {filteredMonsters.map(
+          {filteredMonsters.map(
           (monster) => {
             return (
             <div key={monster.id}>
@@ -53,7 +53,8 @@ componentDidMount() { // This run 3rd - Updates the state and then render re-ren
          )
          
          }
-        </div>
+
+    
        
       </div>
     )
