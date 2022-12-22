@@ -45,7 +45,7 @@ onSearchChange = (event) => {
           <input className = 'search-box' type='search' placeholder='search monsters' 
           onChange={onSearchChange}/>
 
-         <CardList/>
+         <CardList monsters = {filteredMonsters} />
 
     
        
