@@ -1,6 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import {Component} from 'react';
+import CardList from './Components/Card_list/card_list_comp'
+
+
 
 class App extends Component {
   constructor(){ // constructor runs first - in anything and in any class
@@ -42,17 +45,7 @@ onSearchChange = (event) => {
           <input className = 'search-box' type='search' placeholder='search monsters' 
           onChange={onSearchChange}/>
 
-          {filteredMonsters.map(
-          (monster) => {
-            return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
-              </div>
-            )
-          }
-         )
-         
-         }
+         <CardList/>
 
     
        
