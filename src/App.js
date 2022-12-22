@@ -24,6 +24,17 @@ componentDidMount() { // This run 3rd - Updates the state and then render re-ren
     return (
       <div className="App">
         <div className = "Monsters">
+          <input className = 'search-box' type='search' placeholder='search monsters' onChange={(event) => {
+            const searchString = event.target.value.toLocaleLowerCase();
+            const filteredMonsters = this.state.monsters.filter((monster) => {
+             return monster.name.toLocaleLowerCase().includes(searchString);
+            });
+
+            this.setState(() => {
+              return {monsters: filteredMonsters}
+            })
+          
+          }}>search</input>
          {this.state.monsters.map(
           (monster) => {
             return (
