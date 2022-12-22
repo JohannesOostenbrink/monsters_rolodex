@@ -3,8 +3,8 @@ import './App.css';
 import {Component} from 'react';
 
 class App extends Component {
-  constructor(){
-    super();
+  constructor(){ // constructor runs first - in anything and in any class
+    super();     // constructor here initializes the state 
 
     this.state={
       monsters:[],
@@ -12,7 +12,7 @@ class App extends Component {
   };
 }
 
-componentDidMount() {
+componentDidMount() { // This run 3rd - Updates the state and then render re-renders
   fetch('https://jsonplaceholder.typicode.com/users')
     .then((response) => response.json())
     .then((users) => this.setState(() =>
@@ -20,7 +20,7 @@ componentDidMount() {
 }))
 }
 
-  render(){
+  render(){ // Renders run second. It mounts initial UI on to the DOM  
     return (
       <div className="App">
         <div className = "Monsters">
