@@ -1,8 +1,8 @@
-import logo from './logo.svg';
+
 import './App.css';
 import {Component} from 'react';
 import CardList from './Components/Card_list/card_list_comp'
-
+import Search from './Components/Search_box/search'
 
 
 class App extends Component {
@@ -24,7 +24,7 @@ componentDidMount() { // This run 3rd - Updates the state and then render re-ren
 }))
 }
 
-onSearchChange = (event) => {
+onSearchChange = (event) => { // keep this out of render so we can reference this anywhere when rendering 
   const searchField = event.target.value.toLocaleLowerCase();
   this.setState(
     () => ({ searchField }))
@@ -32,18 +32,20 @@ onSearchChange = (event) => {
 
   render(){ // Renders run second. It mounts initial UI on to the DOM  
     
-    const { monsters, searchField} = this.state;
-    const {onSearchChange} = this;
+    const { monsters, searchField} = this.state; // for optimization
+    const {onSearchChange} = this; // for optimization
 
     const filteredMonsters = monsters.filter((monster) => {
       return monster.name.toLocaleLowerCase().includes(searchField);
-     });
+     }); // new variable filteredMonsters inside the render function. It is not being returned from the function
 
     return (
       <div className="App">
-        
-          <input className = 'search-box' type='search' placeholder='search monsters' 
-          onChange={onSearchChange}/>
+
+         <Search 
+         onChangeHandler = {onSearchChange}
+         placeholder = 'search monsters'
+         className = 'search_box' />
 
          <CardList monsters = {filteredMonsters} />
 
