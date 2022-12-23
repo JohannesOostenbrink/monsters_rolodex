@@ -45,7 +45,7 @@ onSearchChange = (event) => { // keep this out of render so we can reference thi
          <Search 
          onChangeHandler = {onSearchChange}
          placeholder = 'search monsters'
-         className = 'search_box' />
+         className = 'monsters_searchbox' />
 
          <CardList monsters = {filteredMonsters} />
 
