@@ -42,6 +42,8 @@ onSearchChange = (event) => { // keep this out of render so we can reference thi
     return (
       <div className="App">
 
+        <h1 className = "AppTitle" >Monsters Rolodex</h1>
+
          <Search 
          onChangeHandler = {onSearchChange}
          placeholder = 'search monsters'
