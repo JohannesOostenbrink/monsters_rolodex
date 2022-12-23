@@ -4,13 +4,12 @@ import './card.css'
 class Card extends Component{
 
     render(){
-        const {id, name, email,} = this.props.monsters;
-        const image = <img alt={`monster ${name}`} src= {`https://robohash.org/${id}?set=set2&size=180x180`}/>
+        const {id, name, email,} = this.props.monster;
         return(
             <div className = 'card-container' key={id}>
-                   {image}
+                   <img alt={`monster ${name}`} src= {`https://robohash.org/${id}?set=set2&size=180x180`}/>
                    <h2>{name}</h2>
-                   <p>{email}</p>
+                   <p>{email}</p>s
               
 
                 </div>
@@ -19,3 +18,4 @@ class Card extends Component{
 }
 
 export default Card; 
+
