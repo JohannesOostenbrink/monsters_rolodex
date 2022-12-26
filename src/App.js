@@ -1,46 +1,44 @@
 
 import './App.css';
-import {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import CardList from './Components/Card_list/card_list_comp'
 import Search from './Components/Search_box/search'
 
 
-class App extends Component {
-  constructor(){ // constructor runs first - in anything and in any class
-    super();     // constructor here initializes the state 
+const App() => {
 
-    this.state={
-      monsters:[],
-      searchField: '',
+    return(
+       <div className="App">
 
-  };
-}
-
-componentDidMount() { // This run 3rd - Updates the state and then render re-renders
-  fetch('https://jsonplaceholder.typicode.com/users')
-    .then((response) => response.json())
-    .then((users) => this.setState(() =>
-   { return {monsters:users};
-}))
-}
-
-onSearchChange = (event) => { // keep this out of render so we can reference this anywhere when rendering 
-  const searchField = event.target.value.toLocaleLowerCase();
-  this.setState(
-    () => ({ searchField }))
-};
-
-  render(){ // Renders run second. It mounts initial UI on to the DOM  
+       const[searchField, setSearchField] = useState('');
+       const [monsters, setMonsters] = useState([]);      // [value, setValue] first one is the value that you want the store
+                                                          // second one is the value you want to set 
+       const [filteredMonsters, setFilteredMonsters] = useState(monsters);
+      
+        useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/users')
+        .then((response) => response.json())
+        .then((users) => setMonsters(users))
     
-    const { monsters, searchField} = this.state; // for optimization
-    const {onSearchChange} = this; // for optimization
+       }, []);                    // accepts two arguments first is function callBack, 
+                                 // second is an array dependency
+                                 // In this case we don't want to fetch data again and therefore we pass it an empty array 
+        useEffect(() => {
+          const newFilteredMonsters = monsters.filter((monster) => {
+            return monster.name.toLocaleLowerCase().includes(searchField);
+           });
+           
+           setFilteredMonsters(newFilteredMonsters);
+        }, [monsters, searchField]);
 
-    const filteredMonsters = monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(searchField);
-     }); // new variable filteredMonsters inside the render function. It is not being returned from the function
 
-    return (
-      <div className="App">
+       const onSearchChange = (event) => { 
+          const searchFieldString = event.target.value.toLocaleLowerCase();
+          setSearchField(searchFieldString);
+        };
+
+
+    
 
         <h1 className = "AppTitle" >Monsters Rolodex</h1>
 
@@ -55,8 +53,6 @@ onSearchChange = (event) => { // keep this out of render so we can reference thi
        
       </div>
     )
-  }
- 
 }
 
 export default App;
