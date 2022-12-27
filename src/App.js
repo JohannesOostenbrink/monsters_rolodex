@@ -41,9 +41,9 @@ const App = () => {
 
          <Search 
          onChangeHandler = {onSearchChange}
-         placeholder = 'search monsters'
+         placeHolder = 'search monsters'
          className = 'monsters_searchbox' />
-
++
          <CardList monsters = {filteredMonsters} />
          
          </div>
